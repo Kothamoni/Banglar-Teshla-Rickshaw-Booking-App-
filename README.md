@@ -1,5 +1,5 @@
 🚖 Rickshaw Booking & Management System
-<div align="center"> <img src="./assets/logo.svg" alt="Rickshaw Booking System Logo" width="300"> </div> <br/>
+<div align="center"> <img src="Image/riclogo.png" alt="Rickshaw Booking System Logo" width="300"> </div> <br/>
 
 Rickshaw Booking & Management System is a comprehensive urban transportation platform designed to connect passengers, rickshaw drivers, and traffic authorities across Bangladesh. The system introduces modern technology to ensure safe rides, transparent pricing, proper regulation, and an improved commuting experience for all stakeholders.
 📑 Table of Contents
