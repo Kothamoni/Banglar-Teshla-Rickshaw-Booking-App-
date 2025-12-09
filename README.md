@@ -37,6 +37,86 @@ Task Management: Trello
 
 Team Communication: Discord
 
+📁 RickshawApp Folder Structure
+
+rickshawapp/
+├── frontend/                     # Client-side application
+│   ├── index.html                # Landing page
+│   ├── login.html                # Login page
+│   ├── register.html             # Registration page
+│   ├── dashboard.html            # User dashboard
+│   │
+│   ├── css/
+│   │   ├── tailwind.css          # Tailwind build
+│   │   └── custom.css            # Custom styles
+│   │
+│   ├── js/
+│   │   ├── auth.js               # Login & registration logic
+│   │   ├── booking.js            # Ride booking logic
+│   │   ├── driver.js             # Driver dashboard
+│   │   ├── payment.js            # Payment handling
+│   │   ├── tracking.js           # Ride tracking
+│   │   ├── api.js                # API calls
+│   │   └── utils.js              # Helper functions
+│   │
+│   └── assets/
+│       ├── images/
+│       └── icons/
+│
+├── backend/                      # Server-side application
+│   ├── server.js                 # App entry point
+│   ├── config/
+│   │   ├── db.js                 # MongoDB connection
+│   │   ├── env.js                # Environment variables
+│   │   └── payment.js            # SSLCommerz config
+│   │
+│   ├── routes/                   # Express routes
+│   │   ├── auth.routes.js
+│   │   ├── user.routes.js
+│   │   ├── driver.routes.js
+│   │   ├── booking.routes.js
+│   │   ├── payment.routes.js
+│   │   └── admin.routes.js
+│   │
+│   ├── controllers/              # Request handling logic
+│   │   ├── auth.controller.js
+│   │   ├── booking.controller.js
+│   │   ├── driver.controller.js
+│   │   ├── payment.controller.js
+│   │   └── admin.controller.js
+│   │
+│   ├── models/                   # Database schemas
+│   │   ├── User.js
+│   │   ├── Driver.js
+│   │   ├── Ride.js
+│   │   ├── Transaction.js
+│   │   └── TrafficCase.js
+│   │
+│   ├── middlewares/              # Express middlewares
+│   │   ├── auth.middleware.js
+│   │   ├── role.middleware.js
+│   │   └── error.middleware.js
+│   │
+│   ├── utils/
+│   │   ├── jwt.js
+│   │   ├── otp.js
+│   │   └── validators.js
+│   │
+│   └── package.json
+│
+├── database/
+│   └── rickshawapp.mongodb       # Database dump (optional)
+│
+├── documentation/                # Academic docs ✅
+│   ├── SRS.pdf
+│   ├── UseCaseDiagram.png
+│   ├── ERDiagram.png
+│   ├── SequenceDiagram.png
+│   └── ArchitectureDiagram.png
+│
+├── .env.example
+├── README.md
+└── LICENSE
 
 
 🌐 Live Demo
@@ -45,10 +125,10 @@ Team Communication: Discord
 (Local backend required for execution)
 
 👥 Team Members
-<div align="center">
-Name	Role	ID
-Umme Nafisa Anzum Kotha Project Lead / Full-Stack	Developer
-Muttakin Mahmud	Full-Stack  Developer	
+| Name                    | Role                                |
+| ----------------------- | ----------------------------------- |
+| Umme Nafisa Anzum Kotha | Project Lead / Full-Stack Developer |
+| Muttakin Mahmud         | Full-Stack Developer                |
 
 
 </div>
@@ -70,157 +150,119 @@ Security & Payment Flow
 
 All supporting documents are provided in the /documentation directory.
 
-💻 Tech Stack
-Frontend
+| Category                      | Technology         | Purpose                                |
+| ----------------------------- | ------------------ | -------------------------------------- |
+| **Frontend**                  | HTML5              | Structuring web pages                  |
+|                               | Tailwind CSS       | Responsive and modern UI design        |
+|                               | JavaScript (ES6+)  | Client-side logic and interactivity    |
+| **Backend**                   | Node.js            | Server-side JavaScript runtime         |
+|                               | Express.js         | REST API development                   |
+|                               | MongoDB            | NoSQL database                         |
+|                               | Mongoose           | MongoDB object data modeling (ODM)     |
+| **Authentication & Security** | JWT Authentication | Secure user login and session handling |
+|                               | OTP Verification   | Two-step authentication                |
+|                               | RBAC               | Role-Based Access Control for users    |
+| **Payments & Utilities**      | SSLCommerz         | Online payment gateway integration     |
+|                               | jsPDF              | PDF report and receipt generation      |
 
-HTML5
-
-Tailwind CSS
-
-JavaScript (ES6+)
-
-Backend
-
-Node.js
-
-Express.js
-
-MongoDB
-
-Mongoose
-
-Authentication & Security
-
-JWT-based authentication
-
-OTP verification
-
-Role-Based Access Control (RBAC)
-
-Payments & Utilities
-
-SSLCommerz Payment Gateway
-
-jsPDF (Report generation)
 
 📜 Project Description
 
 Rickshaw Booking & Management System modernizes the traditional rickshaw transport system in Bangladesh by introducing digital booking, driver verification, transparent pricing, and traffic monitoring.
 
-🎯 Core Objectives
-
-Improve passenger safety
-
-Ensure fair driver earnings
-
-Support traffic regulation authorities
-
-Reduce fare disputes and inefficiencies
+| 🚀 Objective                           |
+| -------------------------------------- |
+| Improve passenger safety               |
+| Ensure fair driver earnings            |
+| Support traffic regulation authorities |
+| Reduce fare disputes & inefficiencies  |
 
 👤 Passenger Features
 
-Secure login and profile management
-
-Ride booking with pickup & drop locations
-
-Real-time driver tracking
-
-OTP-based ride completion
-
-Fare negotiation and upfront pricing
-
-Ride history and digital receipts
-
-Rating and review system
-
-Emergency SOS support
+| 🔹 Feature                       | 🔸 Feature                   |
+| -------------------------------- | ---------------------------- |
+| Secure login & profile           | Ride booking (pickup & drop) |
+| Real-time driver tracking        | OTP-based ride completion    |
+| Fare negotiation & upfront price | Ride history & e-receipts    |
+| Rating & review system           | Emergency SOS support        |
 
 👨‍💼 Driver Features
+| 🔹 Feature                    | 🔸 Feature                     |
+| ----------------------------- | ------------------------------ |
+| Driver verification & profile | Online / Offline availability  |
+| Ride request management       | Earnings dashboard             |
+| Ride history                  | Ratings & performance overview |
 
-Driver verification and profile management
-
-Availability toggle (online/offline)
-
-Ride request handling
-
-Earnings and performance dashboard
-
-Ride history and ratings overview
 
 👮 Traffic Controller Features
+| 🔹 Feature                       | 🔸 Feature                      |
+| -------------------------------- | ------------------------------- |
+| Driver monitoring & verification | Traffic violation case handling |
+| Emergency ride oversight         | PDF report generation           |
+| Regulatory analytics dashboard   | —                               |
 
-Driver monitoring and verification
 
-Traffic violation case management
+🛠️ Getting Started| Requirement         | Version    |
+| ------------------- | ---------- |
+| **Node.js**         | v18+       |
+| **MongoDB**         | v6+        |
+| **Package Manager** | npm / yarn |
 
-PDF report generation
+⚙️ Installation (Development)
 
-Emergency ride oversight
-
-Regulatory analytics dashboard
-
-🛠️ Getting Started
-Prerequisites
-
-Node.js (v18+)
-
-MongoDB (v6+)
-
-npm / yarn
-
-Installation (Development)
 git clone https://github.com/yourusername/rickshaw-booking-system.git
 cd rickshaw-booking-system
 npm install
-
-
-Backend server runs on:
-
+➡ Backend Server:
 http://localhost:3000
 
 🗺️ System Architecture
 
-The system follows a Client–Server Architecture.
+📐 Architecture Overview
 
 Client (Web Browser)
         ↓
-REST API (Express.js)
+ REST API (Express.js)
         ↓
-MongoDB Database
+   MongoDB Database
+   
+🔍 Responsibility Breakdown
 
+| Layer        | Responsibility                      |
+| ------------ | ----------------------------------- |
+| **Frontend** | UI rendering & user interaction     |
+| **Backend**  | Business logic, security & payments |
+| **Database** | Persistent data storage             |
 
-Frontend handles UI and user interaction
-
-Backend manages logic, security, and payments
-
-Database stores persistent application data
 
 📊 Database Models
-Core Collections
 
-User (Passenger, Driver, Traffic Controller)
+🗂️ Core Collections
+| Collection                                     |
+| ---------------------------------------------- |
+| User (Passenger / Driver / Traffic Controller) |
+| Ride                                           |
+| DriverProfile                                  |
+| Transaction                                    |
+| TrafficCase                                    |
+| MarketplaceListing                             |
 
-Ride
+🔗 Key Relationships
+| Relationship                          |
+| ------------------------------------- |
+| One user → multiple rides             |
+| One ride → one passenger & one driver |
+| Transactions ↔ rides                  |
+| Traffic cases ↔ drivers               |
 
-DriverProfile
+🔮 Future Work
 
-Transaction
+-Female-specific rides & female driver matching
+-SOS emergency button with real-time alerts
+-Discount & promo code system for passengers
+-Integration with map & navigation APIs
 
-TrafficCase
 
-MarketplaceListing
-
-Key Relationships
-
-One user can create multiple rides
-
-Each ride links one passenger and one driver
-
-Transactions are associated with rides
-
-Traffic cases are linked to drivers
-
-Indexes are applied for optimized querying and scalability.
 
 📄 License
 
