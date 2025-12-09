@@ -37,86 +37,37 @@ Task Management: Trello
 
 Team Communication: Discord
 
-📁 RickshawApp Folder Structure
+📁 **RickshawApp Folder Structure**
+
+📁 **RickshawApp Folder Structure**
 
 rickshawapp/
-├── frontend/                     # Client-side application
-│   ├── index.html                # Landing page
-│   ├── login.html                # Login page
-│   ├── register.html             # Registration page
-│   ├── dashboard.html            # User dashboard
-│   │
-│   ├── css/
-│   │   ├── tailwind.css          # Tailwind build
-│   │   └── custom.css            # Custom styles
-│   │
-│   ├── js/
-│   │   ├── auth.js               # Login & registration logic
-│   │   ├── booking.js            # Ride booking logic
-│   │   ├── driver.js             # Driver dashboard
-│   │   ├── payment.js            # Payment handling
-│   │   ├── tracking.js           # Ride tracking
-│   │   ├── api.js                # API calls
-│   │   └── utils.js              # Helper functions
-│   │
-│   └── assets/
-│       ├── images/
-│       └── icons/
-│
-├── backend/                      # Server-side application
-│   ├── server.js                 # App entry point
+├── frontend/               # Client-side app
+│   ├── index.html          # Landing page
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── css/                # Styles
+│   │   ├── tailwind.css
+│   │   └── custom.css
+│   ├── js/                 # Scripts
+│   │   ├── auth.js
+│   │   ├── booking.js
+│   │   ├── driver.js
+│   │   ├── payment.js
+│   │   ├── tracking.js
+│   │   ├── api.js
+│   │   └── utils.js
+│   └── assets/             # Images & icons
+├── backend/                # Server-side app
+│   ├── server.js
 │   ├── config/
-│   │   ├── db.js                 # MongoDB connection
-│   │   ├── env.js                # Environment variables
-│   │   └── payment.js            # SSLCommerz config
-│   │
-│   ├── routes/                   # Express routes
-│   │   ├── auth.routes.js
-│   │   ├── user.routes.js
-│   │   ├── driver.routes.js
-│   │   ├── booking.routes.js
-│   │   ├── payment.routes.js
-│   │   └── admin.routes.js
-│   │
-│   ├── controllers/              # Request handling logic
-│   │   ├── auth.controller.js
-│   │   ├── booking.controller.js
-│   │   ├── driver.controller.js
-│   │   ├── payment.controller.js
-│   │   └── admin.controller.js
-│   │
-│   ├── models/                   # Database schemas
-│   │   ├── User.js
-│   │   ├── Driver.js
-│   │   ├── Ride.js
-│   │   ├── Transaction.js
-│   │   └── TrafficCase.js
-│   │
-│   ├── middlewares/              # Express middlewares
-│   │   ├── auth.middleware.js
-│   │   ├── role.middleware.js
-│   │   └── error.middleware.js
-│   │
-│   ├── utils/
-│   │   ├── jwt.js
-│   │   ├── otp.js
-│   │   └── validators.js
-│   │
-│   └── package.json
-│
-├── database/
-│   └── rickshawapp.mongodb       # Database dump (optional)
-│
-├── documentation/                # Academic docs ✅
-│   ├── SRS.pdf
-│   ├── UseCaseDiagram.png
-│   ├── ERDiagram.png
-│   ├── SequenceDiagram.png
-│   └── ArchitectureDiagram.png
-│
-├── .env.example
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   ├── middlewares/
+│   └── utils/
 ├── README.md
-└── LICENSE
 
 
 🌐 Live Demo
@@ -128,7 +79,7 @@ rickshawapp/
 | Name                    | Role                                |
 | ----------------------- | ----------------------------------- |
 | Umme Nafisa Anzum Kotha | Project Lead / Full-Stack Developer |
-| Muttakin Mahmud         | Full-Stack Developer                |
+            
 
 
 </div>
