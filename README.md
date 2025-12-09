@@ -38,9 +38,6 @@ Task Management: Trello
 Team Communication: Discord
 
 📁 **RickshawApp Folder Structure**
-
-📁 **RickshawApp Folder Structure**
-
 rickshawapp/
 ├── frontend/               # Client-side app
 │   ├── index.html          # Landing page
@@ -83,23 +80,7 @@ rickshawapp/
 
 
 </div>
-📘 Documentation
 
-The project documentation includes:
-
-Software Requirements Specification (SRS)
-
-Use Case Diagrams
-
-Database Schema Design
-
-System Architecture Diagrams
-
-API Documentation
-
-Security & Payment Flow
-
-All supporting documents are provided in the /documentation directory.
 
 | Category                      | Technology         | Purpose                                |
 | ----------------------------- | ------------------ | -------------------------------------- |
