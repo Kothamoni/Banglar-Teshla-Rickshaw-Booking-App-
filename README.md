@@ -33,39 +33,74 @@ Rickshaw Booking & Management System is a comprehensive urban transportation pla
 
 Version Control: Git & GitHub
 
-Task Management: Trello
-
-Team Communication: Discord
-
 📁 **RickshawApp Folder Structure**
-rickshawapp/
-├── frontend/               # Client-side app
-│   ├── index.html          # Landing page
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── css/                # Styles
-│   │   ├── tailwind.css
-│   │   └── custom.css
-│   ├── js/                 # Scripts
-│   │   ├── auth.js
-│   │   ├── booking.js
-│   │   ├── driver.js
-│   │   ├── payment.js
-│   │   ├── tracking.js
-│   │   ├── api.js
-│   │   └── utils.js
-│   └── assets/             # Images & icons
-├── backend/                # Server-side app
-│   ├── server.js
-│   ├── config/
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── middlewares/
-│   └── utils/
-├── README.md
 
+<details>
+  <summary>📂 frontend/ (Client-side app)</summary>
+
+
+📄 index.html # Landing page
+📄 login.html
+📄 register.html
+📄 dashboard.html
+📂 css/
+├── 📄 tailwind.css
+└── 📄 custom.css
+📂 js/
+├── 📄 auth.js
+├── 📄 booking.js
+├── 📄 driver.js
+├── 📄 payment.js
+├── 📄 tracking.js
+├── 📄 api.js
+└── 📄 utils.js
+📂 assets/
+├── 📂 images/
+└── 📂 icons/
+
+</details>
+
+<details>
+  <summary>📂 backend/ (Server-side app)</summary>
+
+📄 server.js
+📂 config/
+📂 routes/
+📂 controllers/
+📂 models/
+📂 middlewares/
+📂 utils/
+📄 package.json
+
+css
+Copy code
+</details>
+
+<details>
+  <summary>📂 database/ (DB dump)</summary>
+
+📄 rickshawapp.mongodb # Optional
+
+css
+Copy code
+</details>
+
+<details>
+  <summary>📂 documentation/ (SRS, diagrams)</summary>
+
+📄 SRS.pdf
+📄 UseCaseDiagram.png
+📄 ERDiagram.png
+📄 SequenceDiagram.png
+📄 ArchitectureDiagram.png
+
+bash
+Copy code
+</details>
+
+📄 .env.example  
+📄 README.md  
+📄 LICENSE
 
 🌐 Live Demo
 
