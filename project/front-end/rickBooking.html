@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rickshaw Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class=" bg-gradient-to-br from-blue-200 to-purple-500 text-gray-900">
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8 space-y-10">
+    <div class="flex justify-center">
+      <!-- Booking Section Only -->
+      <div class="w-full max-w-4xl bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-shadow">
+        <h2 class="text-5xl font-extrabold text-blue-800 mb-6 text-center">🚖 BOOK A RICKSHAW</h2>
+        <img src="./image/passemgP.jpg" alt="Rickshaw" class="w-full h-auto object-fit mb-8 rounded-lg border border-gray-300">
+        <div class="space-y-8 text-2xl">
+          <div class="flex gap-6">
+            <div class="w-1/2">
+              <label class="block mb-2 font-semibold">From <i class="fas fa-map-marker-alt text-orange-500"></i></label>
+              <select class="w-full p-4 border rounded-xl shadow-sm">
+                <option selected>BUP</option>
+                <option>NDC</option>
+                <option>Osman Hall</option>
+                <option>Sagufta</option>
+                <option>Mirpur-12</option>
+                <option>Pallabi</option>
+                <option>Mirpur-11</option>
+                <option>Mirpur-10</option>
+                <option>Keyari Moon</option>
+                <option>Ideal School</option>
+              </select>
+            </div>
+            <div class="w-1/2">
+              <label class="block mb-2 font-semibold">To <i class="fas fa-map-signs text-green-500"></i></label>
+              <select class="w-full p-4 border rounded-xl shadow-sm">
+                <option selected>Mirpur-12</option>
+                <option>BUP</option>
+                <option>NDC</option>
+                <option>Osman Hall</option>
+                <option>Sagufta</option>
+                <option>Pallabi</option>
+                <option>Mirpur-11</option>
+                <option>Mirpur-10</option>
+                <option>Keyari Moon</option>
+                <option>Ideal School</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex gap-6">
+            <div class="w-1/2">
+              <label class="block mb-2 font-semibold">Time <i class="far fa-clock text-purple-600"></i></label>
+              <input type="time" class="w-full p-4 border rounded-xl shadow-sm">
+            </div>
+            <div class="w-1/2">
+              <label class="block mb-2 font-semibold">Passengers <i class="fas fa-user-friends text-indigo-600"></i></label>
+              <input type="number" min="1" value="1" class="w-full p-4 border rounded-xl shadow-sm">
+            </div>
+          </div>
+
+          <button onclick="showRickshaws()" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white text-3xl font-bold p-4 rounded-xl transition-all shadow-md hover:scale-105">
+            🔍 Search Rickshaws
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Rickshaw Modal -->
+  <div id="rickshawResults" class="hidden fixed inset-0 z-50 bg-gradient-to-br from-white via-gray-200 to-black overflow-y-auto p-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-6xl text-center text-blue-800">🚖 Available Rickshaws</h2>
+        <button onclick="closeRickshaws()" class="text-red-600 text-5xl font-bold hover:scale-110 transition-transform">&times;</button>
+      </div>
+      <div class="text-center mb-10">
+        <label class="text-3xl font-semibold mr-4">Your Bid Fare:</label>
+        <input type="number" class="p-4 rounded-xl border shadow text-2xl" placeholder="Enter amount">
+        <button class="ml-4 bg-blue-600 text-white px-6 py-3 rounded-xl text-2xl hover:bg-blue-700">Submit Bid</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Rickshaw Cards -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+          <h3 class="text-4xl font-bold mb-2">Driver: Karim</h3>
+          <p class="text-2xl mb-1">Fare: ৳100</p>
+          <p class="text-2xl mb-1">Rating: ⭐ 4.7</p>
+          <button class="mt-4 bg-green-500 hover:bg-green-600 text-white text-2xl px-6 py-2 rounded-xl">Book Now</button>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+          <h3 class="text-4xl font-bold mb-2">Driver: Rahman</h3>
+          <p class="text-2xl mb-1">Fare: ৳110</p>
+          <p class="text-2xl mb-1">Rating: ⭐ 4.5</p>
+          <button class="mt-4 bg-green-500 hover:bg-green-600 text-white text-2xl px-6 py-2 rounded-xl">Book Now</button>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+          <h3 class="text-4xl font-bold mb-2">Driver: Hasan</h3>
+          <p class="text-2xl mb-1">Fare: ৳95</p>
+          <p class="text-2xl mb-1">Rating: ⭐ 4.6</p>
+          <button class="mt-4 bg-green-500 hover:bg-green-600 text-white text-2xl px-6 py-2 rounded-xl">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="mt-18 bg-purple-300 text-white  text-4xl text-center py-8">
+    <p class="text-sm">© 2025 Banglar Tesla. All rights reserved.</p>
+    <p class="text-xs mt-1">Designed with ❤️ in Bangladesh</p>
+  </footer>
+  <!-- Modal Script -->
+  <script>
+    function showRickshaws() {
+      document.getElementById('rickshawResults').classList.remove('hidden');
+    }
+    function closeRickshaws() {
+      document.getElementById('rickshawResults').classList.add('hidden');
+    }
+  </script>
+
+</body>
+</html>

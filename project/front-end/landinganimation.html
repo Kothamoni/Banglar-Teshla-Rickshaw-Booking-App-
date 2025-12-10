@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      font-family: 'Ubuntu', sans-serif;
+    }
+      
+      #moving-img {
+      position: absolute;
+      top: 40%;
+      width: 400px;
+      animation: moveLeftToRight 5s linear forwards;
+      z-index: 2;
+    }
+     #road {
+      position: absolute;
+      top: calc(60% + 150px); /* Adjusted just under the image */
+      
+      width: 100%;
+      height: 60px;
+      background-color: #6e6e6e;
+      box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    @keyframes moveLeftToRight {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(100vw);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Gray road under image -->
+  <div id="road"></div>
+
+  <!-- Moving image -->
+  <img id="moving-img" src="image/rickIconLanding.png" alt="Moving Image">
+
+</body>
+<script>
+  window.onload = function () {
+    setTimeout(function () {
+      window.location.href = "homeMain.html";
+    }, 5200); // Slightly longer than animation
+  };
+</script>
+</html>

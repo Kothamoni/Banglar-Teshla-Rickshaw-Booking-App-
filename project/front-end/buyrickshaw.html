@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy a Rickshaw</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes slidein {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .animate-slidein {
+      animation: slidein 0.4s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="bg-green-200 py-5 px-8 shadow-md transition-all duration-500">
+    <h1 class="text-3xl font-bold text-green-700 animate-pulse">Buy a Rickshaw</h1>
+    <p class="text-lg">Explore our available rickshaws and add to cart</p>
+  </header>
+
+  <main class="p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+   
+    <div class="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <img src="image/ric.jpg" class="w-full h-48 object-cover rounded-lg" alt="Rickshaw 1">
+      <h2 class="mt-3 text-xl font-semibold">Classic Paddle Rickshaw</h2>
+      <p class="text-gray-600">Condition: Excellent</p>
+      <p class="text-lg font-bold text-green-700">৳25,000</p>
+      <button onclick="addToCart('Classic Paddle Rickshaw', 25000)"
+        class="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 active:scale-95 transition-all duration-200">
+        Add to Cart
+      </button>
+    </div>
+
+    
+    <div class="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <img src="image/auto.jpeg" class="w-full h-48 object-cover rounded-lg" alt="Rickshaw 2">
+      <h2 class="mt-3 text-xl font-semibold">Auto Rickshaw</h2>
+      <p class="text-gray-600">Condition: Good</p>
+      <p class="text-lg font-bold text-green-700">৳55,000</p>
+      <button onclick="addToCart('Auto Rickshaw', 55000)"
+        class="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 active:scale-95 transition-all duration-200">
+        Add to Cart
+      </button>
+    </div>
+
+    
+    <div class="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <img src="image/rickshaw3.jpg" class="w-full h-48 object-cover rounded-lg" alt="Rickshaw 3">
+      <h2 class="mt-3 text-xl font-semibold">Vintage Rickshaw</h2>
+      <p class="text-gray-600">Condition: New</p>
+      <p class="text-lg font-bold text-green-700">৳70,000</p>
+      <button onclick="addToCart('Vintage Rickshaw', 70000)"
+        class="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 active:scale-95 transition-all duration-200">
+        Add to Cart
+      </button>
+    </div>
+
+  
+    <div class="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <img src="image/electric1.avif" class="w-full h-48 object-cover rounded-lg" alt="Rickshaw 4">
+      <h2 class="mt-3 text-xl font-semibold">Electric Rickshaw</h2>
+      <p class="text-gray-600">Condition: Refurbished</p>
+      <p class="text-lg font-bold text-green-700">৳18,000</p>
+      <button onclick="addToCart('Electric Rickshaw', 18000)"
+        class="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 active:scale-95 transition-all duration-200">
+        Add to Cart
+      </button>
+    </div>
+
+    
+    <div class="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <img src="image/familyauto.jpg" class="w-full h-48 object-cover rounded-lg" alt="Rickshaw 5">
+      <h2 class="mt-3 text-xl font-semibold">Covered Family Rickshaw</h2>
+      <p class="text-gray-600">Condition: Very Good</p>
+      <p class="text-lg font-bold text-green-700">৳30,000</p>
+      <button onclick="addToCart('Covered Family Rickshaw', 30000)"
+        class="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 active:scale-95 transition-all duration-200">
+        Add to Cart
+      </button>
+    </div>
+
+    
+    <div class="bg-white p-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <img src="image/solar.jpg" class="w-full h-48 object-cover rounded-lg" alt="Rickshaw 6">
+      <h2 class="mt-3 text-xl font-semibold">Solar Hybrid Rickshaw</h2>
+      <p class="text-gray-600">Condition: Brand New</p>
+      <p class="text-lg font-bold text-green-700">৳85,000</p>
+      <button onclick="addToCart('Solar Hybrid Rickshaw', 85000)"
+        class="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 active:scale-95 transition-all duration-200">
+        Add to Cart
+      </button>
+    </div>
+  </main>
+
+  
+  <section class="p-6">
+    <h2 class="text-2xl font-bold mb-4">🛒 Cart</h2>
+    <ul id="cart" class="space-y-2 bg-white p-4 rounded shadow-md transition-all duration-500">
+   
+    </ul>
+    <p id="total" class="mt-4 font-bold text-xl transition-colors duration-300">Total: ৳0</p>
+  </section>
+
+  <script>
+  let cart = [];
+  let total = 0;
+  let isLoggedIn = false; 
+
+  function addToCart(name, price) {
+    if (!isLoggedIn) {
+      alert("You need to sign up or log in before buying a rickshaw.");
+      window.location.href = "home.html#LoGin";
+      return;
+    }
+
+    cart.push({ name, price });
+    total += price;
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartList = document.getElementById('cart');
+    cartList.innerHTML = '';
+
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.className = "bg-green-50 p-2 rounded shadow-sm animate-slidein";
+      li.textContent = `${item.name} - ৳${item.price}`;
+      cartList.appendChild(li);
+    });
+
+    const totalEl = document.getElementById('total');
+    totalEl.textContent = `Total: ৳${total}`;
+    totalEl.classList.add('text-green-600');
+    setTimeout(() => totalEl.classList.remove('text-green-600'), 1000);
+  }
+</script>
+<footer class="bg-green-200 text-center py-4 mt-16">
+  <p class="text-sm text-gray-800">
+    &copy; 2025 <span class="text-orange-400 font-semibold">Hawa Rickshaw</span>. All rights reserved.
+  </p>
+</footer>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Rickshaw Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gradient-to-r from-orange-100 via-white to-blue-100 min-h-screen font-sans">
+  <!-- Navbar -->
+<nav class="flex justify-between items-center bg-orange-500 p-6 shadow-lg sticky top-0 z-50">
+  <h1 class="text-5xl font-extrabold text-white tracking-wide">Passenger Dashboard</h1>
+  <div class="flex items-center gap-4">
+    <img src="image/Screenshot 2025-05-28 012155.png" alt="User" class="w-14 h-14 rounded-full border-4 border-white hover:scale-105 transition-transform" />
+    
+    <a href="homeMain.html"><i class="fa-solid fa-right-from-bracket"></i>
+    </a>  
+  </div>
+</nav>
+
+  <!-- Main Container -->
+  <div class="flex flex-col lg:flex-row p-10 gap-10">
+    <!-- Left Sidebar -->
+    <aside class="lg:w-1/4 w-full bg-white p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow">
+      <div class="text-center mb-10">
+        <img src="image/" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-400 hover:scale-105 transition-transform" alt="User" />
+        <h2 class="text-4xl font-bold text-gray-800">John Doe</h2>
+        <p class="text-gray-600 mt-2 text-xl">📞 017XXXXXXXX</p>
+        <p class="text-gray-600 text-xl">📍 Mirpur, Dhaka</p>
+      </div>
+      <h3 class="text-3xl font-semibold mb-6 text-orange-600">Ride History</h3>
+      <div class="space-y-6">
+        <div class="p-6 rounded-xl bg-orange-100 hover:bg-orange-200 shadow-md transition-colors text-xl">
+          <p><strong>Pickup:</strong> BUP</p>
+          <p><strong>Drop:</strong> Mirpur-12</p>
+          <p><strong>Fare:</strong> ৳120</p>
+          <p><strong>Time:</strong> 10:30 AM</p>
+        </div>
+        <div class="p-6 rounded-xl bg-orange-100 hover:bg-orange-200 shadow-md transition-colors text-xl">
+          <p><strong>Pickup:</strong> NDC</p>
+          <p><strong>Drop:</strong> Mirpur-10</p>
+          <p><strong>Fare:</strong> ৳80</p>
+          <p><strong>Time:</strong> 12:45 PM</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 space-y-10">
+      <div class="flex flex-col lg:flex-row gap-10">
+        <!-- Booking Section -->
+        <div class="lg:w-2/3 w-full bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-shadow">
+          <h2 class="text-5xl font-extrabold text-blue-800 mb-6">🚖 BOOK A RICKSHAW</h2>
+          <img src="./image/passemgP.jpg" alt="Rickshaw" class="w-full h-1/2 object-fit mb-8 rounded-lg border border-gray-300">
+          <div class="space-y-8 text-2xl">
+            <div class="flex gap-6">
+              <div class="w-1/2">
+                <label class="block mb-2 font-semibold">From <i class="fas fa-map-marker-alt text-orange-500"></i></label>
+                <select class="w-full p-4 border rounded-xl shadow-sm">
+                  <option selected>BUP</option>
+                  <option>NDC</option>
+                  <option>Osman Hall</option>
+                  <option>Sagufta</option>
+                  <option>Mirpur-12</option>
+                  <option>Pallabi</option>
+                  <option>Mirpur-11</option>
+                  <option>Mirpur-10</option>
+                  <option>Keyari Moon</option>
+                  <option>Ideal School</option>
+                </select>
+              </div>
+              <div class="w-1/2">
+                <label class="block mb-2 font-semibold">To <i class="fas fa-map-signs text-green-500"></i></label>
+                <select class="w-full p-4 border rounded-xl shadow-sm">
+                  <option selected>Mirpur-12</option>
+                  <option>BUP</option>
+                  <option>NDC</option>
+                  <option>Osman Hall</option>
+                  <option>Sagufta</option>
+                  <option>Pallabi</option>
+                  <option>Mirpur-11</option>
+                  <option>Mirpur-10</option>
+                  <option>Keyari Moon</option>
+                  <option>Ideal School</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex gap-6">
+              <div class="w-1/2">
+                <label class="block mb-2 font-semibold">Time <i class="far fa-clock text-purple-600"></i></label>
+                <input type="time" class="w-full p-4 border rounded-xl shadow-sm">
+              </div>
+              <div class="w-1/2">
+                <label class="block mb-2 font-semibold">Passengers <i class="fas fa-user-friends text-indigo-600"></i></label>
+                <input type="number" min="1" value="1" class="w-full p-4 border rounded-xl shadow-sm">
+              </div>
+            </div>
+
+            <button class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white text-3xl font-bold p-4 rounded-xl transition-all shadow-md hover:scale-105">
+              🔍 Search Rickshaws
+            </button>
+          </div>
+        </div>
+
+        <!-- Weather and Traffic -->
+        <div class="lg:w-1/3 w-full flex flex-col gap-10">
+          <div class="bg-blue-100 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow">
+            <h3 class="text-5xl font-bold mb-6">🌤️ Weather</h3>
+           <iframe src="https://www.ventusky.com/dhaka" frameborder="0" width="100%" height="350" class="rounded-xl"></iframe>
+          </div>
+
+          <div class="bg-red-100 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-shadow">
+            <h3 class="text-5xl font-bold mb-6">🚦 Traffic Updates</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.843619442297!2d90.37614121498257!3d23.750876684591453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b9b4cf389d%3A0xb4f1bb4d02fd0439!2sMirpur%2010!5e0!3m2!1sen!2sbd!4v1625481234567" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="rounded-xl"></iframe>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<!-- Rickshaw Results Modal -->
+  <div id="rickshawResults" class="hidden fixed inset-0 z-50 bg-gradient-to-br from-purple-300 via-blue-200 to-green-200 overflow-y-auto p-10">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-6xl font-extrabold text-center text-blue-800 mb-10">🛺 Available Rickshaws</h2>
+      <div class="mb-10 text-center">
+        <label class="text-3xl font-semibold mr-4">Bid Fare:</label>
+        <input type="number" class="p-4 rounded-xl border shadow text-2xl" placeholder="Enter your fare">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:scale-105 transition-transform">
+          <h3 class="text-4xl font-bold mb-4">Driver: Rahim</h3>
+          <p class="text-2xl mb-2">Fare: ৳120</p>
+          <p class="text-2xl mb-2">⭐ 4.8 Rating</p>
+          <button class="mt-4 px-6 py-2 bg-green-600 text-white text-2xl rounded-xl hover:bg-green-700">Book Now</button>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:scale-105 transition-transform">
+          <h3 class="text-4xl font-bold mb-4">Driver: Salam</h3>
+          <p class="text-2xl mb-2">Fare: ৳100</p>
+          <p class="text-2xl mb-2">⭐ 4.6 Rating</p>
+          <button class="mt-4 px-6 py-2 bg-green-600 text-white text-2xl rounded-xl hover:bg-green-700">Book Now</button>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:scale-105 transition-transform">
+          <h3 class="text-4xl font-bold mb-4">Driver: Kamal</h3>
+          <p class="text-2xl mb-2">Fare: ৳90</p>
+          <p class="text-2xl mb-2">⭐ 4.5 Rating</p>
+          <button class="mt-4 px-6 py-2 bg-green-600 text-white text-2xl rounded-xl hover:bg-green-700">Book Now</button>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <button onclick="closeRickshaws()" class="bg-red-500 text-white text-3xl px-8 py-4 rounded-xl hover:bg-red-600">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Footer -->
+  <footer class="mt-18 bg-gray-800 text-white  text-4xl text-center py-8">
+    <p class="text-sm">© 2025 Banglar Tesla. All rights reserved.</p>
+    <p class="text-xs mt-1">Designed with ❤️ in Bangladesh</p>
+  </footer>
+</body>
+</html>

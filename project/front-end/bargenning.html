@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bargaining - Rickshaw Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-200 to-purple-500 text-gray-900">
+
+<nav class="flex justify-between items-center p-6 bg-white shadow-md">
+  <div class="text-2xl font-bold text-blue-800">
+    Available Rickshaws
+  </div>
+  <a href="/front-end/login.html"" onclick="logout()" class="text-blue-600 hover:text-red-800 text-2xl font-bold flex items-center gap-2">
+    Back to Dashboard
+  </a>
+</nav>
+
+<main class="p-6 max-w-7xl mx-auto">
+  <div id="driversGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+    <!-- Driver cards will be appended here -->
+  </div>
+</main>
+
+<script>
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+
+  if (!token || !email) {
+    alert("Please login first!");
+    window.location.href = "/front-end/login.html";
+  }
+
+  function logout() {
+    localStorage.clear();
+    window.location.href = "/front-end/login.html";
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get("from");
+  const to = params.get("to");
+  const date = params.get("date");
+  const time = params.get("time");
+
+  async function fetchAvailableRickshaws() {
+    try {
+      const res = await fetch('http://localhost:3000/api/rickshaws/available', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ from, to, date, time })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        alert("Error fetching rickshaws: " + err.message);
+        return;
+      }
+
+      const drivers = await res.json();
+      displayDrivers(drivers);
+
+    } catch (err) {
+      alert("Network error: " + err.message);
+    }
+  }
+
+  function displayDrivers(drivers) {
+    const container = document.getElementById('driversGrid');
+    container.innerHTML = '';
+
+    if (drivers.length === 0) {
+      container.innerHTML = '<p class="text-center text-2xl text-red-600">No available rickshaws found.</p>';
+      return;
+    }
+
+    drivers.forEach(d => {
+      const fare = d.distance_km * 25;
+      const card = document.createElement('div');
+      card.className = "bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform";
+
+      card.innerHTML = `
+        <h3 class="text-4xl font-bold mb-2">Driver: ${d.name}</h3>
+        <p class="text-2xl mb-1">Fare: ৳${fare.toFixed(2)}</p>
+        <p class="text-2xl mb-1">Rating: ⭐ ${d.rating || '4.5'}</p>
+       <button onclick="requestRide('${d._id}', ${fare.toFixed(2)})"
+ class="mt-4 bg-green-500 hover:bg-green-600 text-white text-2xl px-6 py-2 rounded-xl">Request Ride</button>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  async function requestRide(driverId, fare) {
+  const confirmRide = confirm(`Request ride at fare ৳${fare}?`);
+  if (!confirmRide) return;
+
+  try {
+    const res = await fetch('http://localhost:3000/api/rides/request', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ driverId, from, to, date, time, fare })
+    });
+
+    if (!res.ok) {
+      let errMessage = 'Unknown error';
+      try {
+        const err = await res.json();
+        errMessage = err.message || JSON.stringify(err);
+      } catch (e) {
+        errMessage = await res.text();
+      }
+      alert("Ride request failed: " + errMessage);
+      return;
+    }
+
+    const data = await res.json();
+    alert("Ride requested successfully! Redirecting to ride info...");
+
+    // Save ride info in localStorage or sessionStorage
+    localStorage.setItem('currentRide', JSON.stringify(data.ride)); 
+    // Redirect to ride-info page
+    window.location.href = '/front-end/ride-info.html';
+
+  } catch (err) {
+    alert("Network error: " + err.message);
+  }
+}
+
+  fetchAvailableRickshaws();
+</script>
+
+</body>
+</html>

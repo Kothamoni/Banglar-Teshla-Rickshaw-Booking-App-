@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ride Info & Payment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-300 to-blue-200 min-h-screen flex flex-col items-center p-8 font-sans">
+
+  <div class="bg-white shadow-lg rounded-3xl max-w-xl w-full p-8 space-y-6">
+    <h1 class="text-3xl font-bold text-center text-blue-800 mb-4">Your Current Ride</h1>
+
+    <div id="rideDetails" class="space-y-2 text-lg text-gray-700">
+      <!-- Ride details injected here -->
+    </div>
+
+    <div class="flex justify-around mt-8 space-x-4">
+      <button id="stopJourneyBtn" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl shadow-lg transition">
+        Stop Journey
+      </button>
+      <button id="payNowBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg transition">
+        Pay Now
+      </button>
+    </div>
+
+    <p id="statusMsg" class="text-center text-red-600 font-semibold mt-4"></p>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api';
+    const token = localStorage.getItem('token');
+    const ride = JSON.parse(localStorage.getItem('currentRide'));
+
+    if (!token || !ride) {
+      alert('Missing ride info or not logged in. Redirecting...');
+      window.location.href = '/front-end/login.html';
+    }
+
+    // Display ride info
+    const rideDetails = document.getElementById('rideDetails');
+    rideDetails.innerHTML = `
+      <p><strong>Passenger Email:</strong> ${ride.passengerEmail}</p>
+      <p><strong>From:</strong> ${ride.from}</p>
+      <p><strong>To:</strong> ${ride.to}</p>
+      <p><strong>Date:</strong> ${ride.date}</p>
+      <p><strong>Time:</strong> ${ride.time}</p>
+      <p><strong>Fare:</strong> ৳${ride.fare.toFixed(2)}</p>
+      <p><strong>Status:</strong> ${ride.status}</p>
+    `;
+
+    const statusMsg = document.getElementById('statusMsg');
+
+    // Stop journey button handler
+    document.getElementById('stopJourneyBtn').addEventListener('click', async () => {
+      if (!confirm('Are you sure you want to stop the journey?')) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/rides/stop/${ride._id}`, { // Your backend route to stop ride
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Failed to stop journey');
+
+        alert('Journey stopped successfully!');
+        // Clear ride info and redirect back to dashboard or home page
+        localStorage.removeItem('currentRide');
+        window.location.href = '/front-end/passengerhome.html';
+
+      } catch (err) {
+        statusMsg.textContent = err.message;
+      }
+    });
+
+    // Pay Now button handler: Integration with SSLCommerz
+    document.getElementById('payNowBtn').addEventListener('click', async () => {
+  try {
+    const res = await fetch(`${API_BASE}/payment/initiate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ amount: ride.fare })
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.msg || 'Payment initiation failed');
+    }
+
+    const data = await res.json();
+    window.location.href = data.redirectUrl;  // Redirect to SSLCommerz payment gateway
+
+  } catch (err) {
+    alert('Payment error: ' + err.message);
+  }
+});
+
+
+  </script>
+</body>
+</html>

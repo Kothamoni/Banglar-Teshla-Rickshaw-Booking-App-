@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Traffic Controller Dashboard</title>  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    @keyframes shimmer {
+      0% { background-position: -500px 0; }
+      100% { background-position: 500px 0; }
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-shimmer {
+      background: linear-gradient(
+        90deg,
+        #facc15,
+        #f472b6,
+        #ef4444,
+        #f472b6,
+        #facc15
+      );
+      background-size: 1000px 100%;
+      animation: shimmer 3s infinite linear;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .animate-scroll {
+      animation: scroll 30s linear infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Navbar -->
+  <nav class="bg-gradient-to-br from-red-200 to-pink-700 text-white flex justify-between items-center p-4 shadow">
+    <h2 class="text-2xl md:text-4xl font-extrabold animate-shimmer drop-shadow-lg">
+      Traffic Controller Dashboard
+    </h2>
+    <div class="flex items-center space-x-6">
+      <a href="Trafficprofile.html" class="hover:underline text-lg transition duration-300 transform hover:scale-105 hover:shadow-lg px-3 py-1 rounded">👤 Profile</a>
+      <a href="rickBooking.html" class="transition duration-300 transform hover:scale-105 hover:shadow-lg p-1 rounded-full bg-white">
+        <img src="image/trafficPageIcon.png" width="40" height="40" class="rounded-full" />
+      </a>
+      <a href="homeMain.html" class="hover:underline text-lg transition duration-300 transform hover:scale-105 hover:shadow-lg px-3 py-1 rounded">🚪 Logout</a>
+    </div>
+  </nav>
+
+  <!-- File a Case Section -->
+  <div class="relative min-h-screen flex items-center justify-center" style="background-image: url('image/trafficBg.jpg'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-red-800/40 z-0"></div>
+
+    <section id="fileCaseSection" class="relative z-10 w-full max-w-2xl bg-white bg-opacity-95 shadow-2xl rounded-3xl p-10 border-4 border-red-300 hover:border-red-500 transition duration-500">
+      <h3 class="text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400 animate-pulse">📄 File a Traffic Case</h3>
+      <form id="caseForm" class="space-y-6">
+        <input id="name" type="text" placeholder="👤 Driver Name" required class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-lg" />
+        <input id="driverId" type="text" placeholder="🆔 Driver ID" required class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-lg" />
+        <select id="violationType" required class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-lg">
+          <option value="" disabled selected>🚫 Select Violation Type</option>
+          <option value="Overspeed">Overspeed</option>
+          <option value="Accident">Accident</option>
+          <option value="Overtake">Overtake</option>
+          <option value="Going on the Main Road">Going on the Main Road</option>
+          <option value="Not Maintaining Traffic Lights">Not Maintaining Traffic Lights</option>
+        </select>
+        <textarea id="description" placeholder="📝 Description" rows="4" class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-lg"></textarea>
+        <button type="submit" class="bg-red-600 text-white py-4 w-full text-xl font-bold rounded-lg hover:bg-red-700 transition duration-300 shadow-md hover:shadow-xl">
+          🚨 Submit Case & Download PDF
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Traffic Rules Section -->
+  <div class="bg-gradient-to-br from-gray-100 to-red-100 py-16 px-12">
+    <h3 class="text-4xl font-extrabold mb-10 text-center text-red-700 underline decoration-wavy">🚦 Traffic Rules & Regulations</h3>
+    <div class="overflow-x-auto whitespace-nowrap flex space-x-8 animate-scroll px-2">
+      <div class="min-w-[600px] transition-all duration-300 hover:bg-red-100 hover:text-red-700 bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl text-2xl font-semibold text-center transform hover:scale-105">
+        🛵 Always wear a helmet when riding a bike.
+      </div>
+      <div class="min-w-[600px] transition-all duration-300 hover:bg-red-100 hover:text-red-700 bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl text-2xl font-semibold text-center transform hover:scale-105">
+        📵 Do not use mobile phones while driving.
+      </div>
+      <div class="min-w-[600px] transition-all duration-300 hover:bg-red-100 hover:text-red-700 bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl text-2xl font-semibold text-center transform hover:scale-105">
+        🚦 Obey traffic signals at all times.
+      </div>
+      <div class="min-w-[600px] transition-all duration-300 hover:bg-red-100 hover:text-red-700 bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl text-2xl font-semibold text-center transform hover:scale-105">
+        🚗 Maintain the speed limit strictly.
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-18 bg-gradient-to-br from-red-200 to-pink-700 text-white text-4xl text-center py-8">
+    <p class="text-sm">© 2025 Banglar Tesla. All rights reserved.</p>
+    <p class="text-xs mt-1">Designed with ❤️ in Bangladesh</p>
+  </footer>
+
+  <script>
+    document.getElementById("caseForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const driverId = document.getElementById("driverId").value.trim();
+      const violationType = document.getElementById("violationType").value;
+      const description = document.getElementById("description").value.trim();
+
+      if (!name || !driverId || !violationType) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/api/cases", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, driverId, violationType, description })
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          alert("✅ Case submitted successfully!");
+          generatePDF({ name, driverId, violationType, description });
+          this.reset();
+        } else {
+          alert("❌ Submission failed: " + result.error);
+        }
+      } catch (err) {
+        alert("❌ Error submitting case.");
+        console.error(err);
+      }
+    });
+
+    function generatePDF(data) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("Traffic Violation Case Report", 14, 22);
+
+  doc.setFontSize(12);
+  doc.text(`Driver Name: ${data.name}`, 14, 40);
+  doc.text(`Driver ID: ${data.driverId}`, 14, 50);
+  doc.text(`Violation Type: ${data.violationType}`, 14, 60);
+  doc.text("Description:", 14, 70);
+
+  const desc = doc.splitTextToSize(data.description || "N/A", 180);
+  doc.text(desc, 14, 80);
+
+  doc.setFontSize(10);
+  doc.text(`Filed on: ${new Date().toLocaleString()}`, 14, 130);
+
+  doc.save(`Traffic_Case_${data.driverId}_${Date.now()}.pdf`);
+}
+
+  </script>
+
+</body>
+</html>

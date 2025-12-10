@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-pink-100 via-white to-red-200 min-h-screen p-6">
+
+  <div class="max-w-5xl  grid md:grid-cols-2 gap-10 items-start ml-40">
+    <!-- Form Section -->
+    <div class="bg-white shadow-2xl rounded-xl p-10">
+      <h2 class="text-3xl font-bold text-center text-red-600 mb-6">👤 Traffic Controller Profile</h2>
+      <form id="profileForm" enctype="multipart/form-data" class="space-y-6">
+
+        <input type="text" id="name" placeholder="Your Full Name" class="w-full p-4 border rounded" required />
+        <input type="email" id="email" placeholder="Your Email" class="w-full p-4 border rounded" required />
+        <input type="text" id="phone" placeholder="Phone Number" class="w-full p-4 border rounded" required />
+        <textarea id="address" placeholder="Your Address" class="w-full p-4 border rounded" rows="3" required></textarea>
+
+        <label class="block text-lg font-semibold text-gray-700">Profile Picture:</label>
+        <input type="file" id="profilePic" accept="image/*" class="w-full p-2 border rounded bg-gray-50" required />
+
+        <button type="submit" class="w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 font-bold text-lg">Save Profile</button>
+      </form>
+    </div>
+
+    <!-- Display Section -->
+    <div id="profileDisplay" class="bg-white shadow-xl rounded-xl p-8 text-center hidden w-[600px] h-[500px]">
+      <h3 class="text-2xl font-bold text-red-500 mb-4 mt-20">📋 Latest Submitted Profile</h3>
+      <img id="displayPic" class="w-32 h-22 mx-auto rounded-full shadow-lg mb-4" src="" alt="Profile Image" />
+      <p class="text-lg"><strong>User ID:</strong> <span id="displayUid"></span></p>
+      <p class="text-lg"><strong>Name:</strong> <span id="displayName"></span></p>
+      <p class="text-lg"><strong>Email:</strong> <span id="displayEmail"></span></p>
+      <p class="text-lg"><strong>Phone:</strong> <span id="displayPhone"></span></p>
+      <p class="text-lg"><strong>Address:</strong> <span id="displayAddress"></span></p>
+    </div>
+  </div>
+<!-- Cross Icon to go back -->
+<a href="trafficcontroller.html" title="Go Back"
+   class="fixed top-6 right-6 text-red-600 text-4xl font-bold hover:text-red-800 hover:scale-110 transition-transform z-50">
+  &times;
+</a>
+
+  <script>
+    const profileForm = document.getElementById("profileForm");
+
+    profileForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("uniqueId", localStorage.getItem("uniqueId")); // ✅ attach user ID
+      formData.append("name", document.getElementById("name").value);
+      formData.append("email", document.getElementById("email").value);
+      formData.append("phone", document.getElementById("phone").value);
+      formData.append("address", document.getElementById("address").value);
+      formData.append("profilePic", document.getElementById("profilePic").files[0]);
+
+      try {
+        const res = await fetch("http://localhost:3000/api/traffic/profile", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await res.json();
+        if (res.ok) {
+          alert(result.message || "Profile saved successfully!");
+          fetchProfile(); // Fetch & display the profile after saving
+        } else {
+          alert(result.error || "Error occurred.");
+        }
+      } catch (error) {
+        alert("Something went wrong.");
+        console.error(error);
+      }
+    });
+
+    async function fetchProfile() {
+      try {
+        const res = await fetch("http://localhost:3000/api/traffic/profile");
+        const data = await res.json();
+
+        if (res.ok) {
+          document.getElementById("displayPic").src = `http://localhost:3000/uploads/${data.profilePic}`;
+          document.getElementById("displayUid").textContent = data.uniqueId || "N/A";
+          document.getElementById("displayName").textContent = data.name;
+          document.getElementById("displayEmail").textContent = data.email;
+          document.getElementById("displayPhone").textContent = data.phone;
+          document.getElementById("displayAddress").textContent = data.address;
+          document.getElementById("profileDisplay").classList.remove("hidden");
+        }
+      } catch (err) {
+        console.error("Failed to fetch profile:", err);
+      }
+    }
+
+    window.onload = fetchProfile;
+  </script>
+</body>
+</html>

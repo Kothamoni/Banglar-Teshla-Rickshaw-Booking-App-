@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Driver Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Navbar -->
+ <header class="bg-blue-700 text-white p-4 flex justify-between items-center">
+  <h1 class="text-xl font-bold">Driver Dashboard</h1>
+  <div class="flex items-center space-x-4">
+    <img id="profilePic" src="" alt="Profile Picture" class="w-12 h-12 rounded-full object-cover hidden" />
+    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-1 rounded">Logout</button>
+  </div>
+</header>
+
+
+  <div class="max-w-5xl mx-auto mt-6 p-4 space-y-6">
+
+    <!-- Profile Section -->
+    <section class="bg-white shadow-md rounded p-6">
+      <h2 class="text-xl font-semibold text-blue-600 mb-4">Driver Profile</h2>
+      <form id="driverProfileForm" class="grid md:grid-cols-2 gap-4">
+        <input type="text" id="name" name="name" placeholder="Name" class="border p-2 rounded" required />
+        <input type="number" id="age" name="age" placeholder="Age" class="border p-2 rounded" required />
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number" class="border p-2 rounded" required />
+        <input type="text" id="location" name="location" placeholder="Location" class="border p-2 rounded" required />
+       <!-- With this select -->
+<select id="vehicleModel" name="vehicleModel" class="border p-2 rounded" required>
+  <option value="" disabled selected>Select Vehicle Model</option>
+  <option value="Paddling">Paddling</option>
+  <option value="Auto">Auto</option>
+</select>
+        <!-- File input for new photo upload -->
+<input type="file" id="pPhotoFile" name="photo" accept="image/*" />
+
+<!-- Hidden input or text input holding existing photo filename -->
+<input type="hidden" id="pPhoto" name="existingPhoto" value="old-photo-filename.jpg" />
+
+
+        <button type="submit" class="md:col-span-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Update Profile
+        </button>
+      </form>
+      <p id="profileMsg" class="mt-2 text-green-600 font-semibold"></p>
+    </section>
+
+   
+  </div>
+<!-- Current Ride Section -->
+<section class="bg-white shadow-md rounded p-6">
+  <h2 class="text-xl font-semibold text-blue-600 mb-4">Current Ride</h2>
+  <div id="currentRideContainer" class="text-gray-700">
+    <p>Loading current ride...</p>
+  </div>
+</section>
+  <script>
+    const API_BASE = 'http://localhost:3000/api';  // Adjust if your backend URL or port differs
+    
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('Not logged in. Redirecting to login...');
+      window.location.href = 'login.html';
+    } else {
+      console.log("Token found:", token);
+    }
+
+   
+
+    async function fetchDriverProfile() {
+  try {
+    const email = localStorage.getItem('email');
+    if (!email) throw new Error('No email found in localStorage');
+
+    const res = await fetch(`${API_BASE}/driver/email/${email}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Failed to fetch driver profile: ${res.status} ${errorText}`);
+    }
+
+    const data = await res.json();
+    console.log('Driver profile data:', data);
+
+    document.getElementById('name').value = data.name || '';
+    document.getElementById('age').value = data.age || '';
+    document.getElementById('phone').value = data.phone || '';
+    document.getElementById('location').value = data.location || '';
+    document.getElementById('vehicleModel').value = data.vehicleModel || '';
+
+    // Set hidden existing photo filename
+    document.getElementById('pPhoto').value = data.photo || data.profilePic || '';
+
+    // Show profile picture if available
+    const profilePicElem = document.getElementById('profilePic');
+    const photoFilename = data.photo || data.profilePic;
+    if (photoFilename) {
+      profilePicElem.src = `${API_BASE}/uploads/${photoFilename}`;
+      profilePicElem.classList.remove('hidden');
+    } else {
+      profilePicElem.src = '';
+      profilePicElem.classList.add('hidden');
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert('Error loading driver profile. See console for details.');
+  }
+}
+
+
+
+
+document.getElementById('driverProfileForm').addEventListener('submit', async (e) => {
+  e.preventDefault(); // prevent normal form submission
+
+  const formData = new FormData();
+
+  const photoFileInput = document.getElementById("pPhotoFile");
+  const existingPhotoInput = document.getElementById("pPhoto");
+
+  const photoFile = photoFileInput.files[0];
+
+  if (photoFile) {
+    formData.append("photo", photoFile);
+  } else {
+    formData.append("photo", existingPhotoInput.value);
+  }
+
+  // Append other form fields
+  formData.append("name", document.getElementById("name").value);
+  formData.append("age", document.getElementById("age").value);
+  formData.append("phone", document.getElementById("phone").value);
+  formData.append("location", document.getElementById("location").value);
+  formData.append("vehicleModel", document.getElementById("vehicleModel").value);
+
+  const email = localStorage.getItem('email');
+  if (!email) {
+    alert("No email found in localStorage. Please login again.");
+    window.location.href = 'login.html';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}/driver/${email}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        // Do NOT set 'Content-Type' when sending FormData
+      },
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Failed to update profile');
+    }
+
+    document.getElementById('profileMsg').textContent = 'Profile updated successfully!';
+    fetchDriverProfile(); // Refresh form with updated data
+  } catch (error) {
+    alert(error.message);
+  }
+});
+async function fetchCurrentRide() {
+  try {
+    const res = await fetch(`${API_BASE}/rides/driver-current`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    const container = document.getElementById('currentRideContainer');
+
+    if (res.status === 404) {
+      container.innerHTML = '<p>No active ride.</p>';
+      return;
+    }
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Failed to fetch ride: ${res.status} ${errorText}`);
+    }
+
+    const ride = await res.json();
+
+ container.innerHTML = `
+  <p><strong>Passenger Email:</strong> ${ride.passengerEmail}</p>
+  <p><strong>From:</strong> ${ride.from}</p>
+  <p><strong>To:</strong> ${ride.to}</p>
+  <p><strong>Date:</strong> ${ride.date}</p>
+  <p><strong>Time:</strong> ${ride.time}</p>
+  <p><strong>Fare:</strong> ${ride.fare}</p>
+  <p><strong>Status:</strong> ${ride.status}</p>
+  ${
+    ride.status === 'pending' ? 
+    `<button id="confirmRideBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow transition duration-300">
+      Confirm Ride
+    </button>` : ''
+  }
+  ${
+    ride.status === 'accepted' ? 
+    `
+    <label for="otpInput">Enter OTP:</label>
+    <div class="flex items-center space-x-2 mt-2">
+  <label for="otpInput" class="font-semibold text-gray-700">Enter OTP:</label>
+  <input
+    id="otpInput"
+    maxlength="6"
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    class="w-20 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
+    placeholder="******"
+  />
+  <button
+    id="verifyOtpBtn"
+    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 shadow transition duration-300"
+  >
+    Verify OTP
+  </button>
+</div>
+
+    ` : ''
+  }
+`;
+
+    
+
+    if (ride.status === 'pending') {
+      document.getElementById('confirmRideBtn').addEventListener('click', async () => {
+        try {
+          const confirmRes = await fetch(`${API_BASE}/rides/confirm`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            }
+          });
+          const data = await confirmRes.json();
+          if (!confirmRes.ok) throw new Error(data.message || 'Failed to confirm ride');
+          alert(data.message);
+          fetchCurrentRide(); // Refresh ride info
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    }
+
+    if (ride.status === 'accepted') {
+      document.getElementById('verifyOtpBtn').addEventListener('click', async () => {
+        const enteredOtp = document.getElementById('otpInput').value.trim();
+        if (enteredOtp.length !== 6) return alert('Please enter a valid 6-digit OTP');
+        try {
+          const verifyRes = await fetch(`${API_BASE}/rides/verify-otp`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ enteredOtp })
+          });
+          const verifyData = await verifyRes.json();
+          if (!verifyRes.ok) throw new Error(verifyData.message || 'OTP verification failed');
+          alert(verifyData.message);
+          fetchCurrentRide(); // Refresh ride info
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    }
+
+  } catch (error) {
+    console.error(error);
+    document.getElementById('currentRideContainer').innerHTML = '<p>Error loading current ride.</p>';
+  }
+}
+
+
+
+
+
+    
+
+    function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('email');  // clear email too
+  window.location.href = 'login.html';
+}
+
+
+    // On page load
+    window.onload = () => {
+      fetchDriverProfile();
+      fetchCurrentRide();
+    };
+  </script>
+
+</body>
+</html>
