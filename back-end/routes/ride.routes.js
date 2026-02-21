@@ -3,7 +3,7 @@ const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const Ride = require("../models/Ride");
 const Driver = require("../models/driver.model");  // add driver model here
-const sendOTP = require("../utils/sendOTP");
+const sendOTP = require("../utils/sendOtp");
 
 // GET current active ride for driver
 router.get('/driver-current', authMiddleware, async (req, res) => {
