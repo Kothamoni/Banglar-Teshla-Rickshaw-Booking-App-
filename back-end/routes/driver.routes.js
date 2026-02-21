@@ -3,7 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const Driver = require("../models/driver.model");
 const Ride = require("../models/Ride"); // your ride schema
-const sendOTP = require("../utils/sendOTP");
+const sendOTP = require("../utils/sendOtp");
 
 
 
