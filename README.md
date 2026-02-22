@@ -104,8 +104,7 @@ Copy code
 
 🌐 Live Demo
 
-🚧 Coming Soon
-(Local backend required for execution)
+(https://banglar-teshla-rickshaw-booking-app.vercel.app/)
 
 👥 Team Members
 | Name                    | Role                                |
