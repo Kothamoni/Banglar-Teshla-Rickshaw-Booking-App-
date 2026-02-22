@@ -15,13 +15,15 @@ const paymentRoutes = require('./routes/payment.routes');
 const path = require('path');
 
 const app = express();const passengerProfileRoutes = require('./routes/passenger.routes');
-
+// Allow frontend domain
+app.use(cors({
+    origin: 'https://banglar-teshla-rickshaw-booking-app.vercel.app', // your Vercel domain
+    methods: ['GET','POST','PUT','DELETE'],
+    credentials: true
+}));
 
 app.use(express.json());
-app.use(cors({
-  origin: ['http://localhost:5501', 'http://127.0.0.1:5501', 'http://localhost'],
-  credentials: true
-}));
+
 app.use('/api/rickshaws', rickshawRoutes);
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/passenger', passengerProfileRoutes);
