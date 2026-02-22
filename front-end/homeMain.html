@@ -3,15 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Onboarding</title>
+  <title>Banglar Tesla - Landing</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
-  <link rel="stylesheet" href="homeMain.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    /* Autocomplete dropdown */
+    #searchSuggestions {
+      position: absolute;
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 50;
+    }
+    #searchSuggestions div {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    #searchSuggestions div:hover {
+      background-color: #e0f2fe;
+    }
+  </style>
 </head>
 
-<body class="bg-gradient-to-r from-blue-500 via-white to-purple-300 pt-28">
+<body class="bg-gradient-to-r from-blue-500 via-white to-purple-300 pt-28 font-ubuntu">
 
   <!-- Header -->
   <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
@@ -19,6 +39,18 @@
       <div class="flex items-center gap-4">
         <img src="image/title-gif.gif" class="h-10 w-auto" alt="Logo" />
       </div>
+
+      <!-- Search Bar with Autocomplete -->
+<div class="relative w-80 md:w-96"> <!-- use standard Tailwind widths -->
+  <input type="text"
+         id="navSearch"
+         placeholder="Search features, login, rickshaws..."
+         class="w-full border-2 border-gray-300 rounded-full py-2 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
+         autocomplete="off" />
+ 
+  <div id="searchSuggestions" class="hidden"></div>
+</div>
+
       <ul class="flex items-center gap-6 text-2xl">
         <li>
           <a href="login.html" title="Login">
@@ -45,254 +77,160 @@
         </li>
       </ul>
     </div>
-    <div class="flex justify-center py-2 bg-gray-50">
-      <div class="relative w-full max-w-md">
-        <input type="text" placeholder="Search" class="w-full border rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-      </div>
-    </div>
   </header>
 
-  <!-- Feedback Section -->
-  <div class="flex justify-between items-start px-6 mt-10">
-    <div class="flex justify-center items-center px-6 mt-20 w-full">
-      <div class="w-full max-w-3xl bg-white p-10 rounded-2xl shadow-2xl">
-        <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">We Value Your Feedback</h2>
-        <form id="feedbackForm">
-          <div class="mb-6">
-            <label for="name" class="block text-gray-700 font-semibold mb-2 text-lg">Name</label>
-            <input type="text" id="name" class="w-full px-5 py-3 text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name" required />
-          </div>
-          <div class="mb-6">
-            <label for="email" class="block text-gray-700 font-semibold mb-2 text-lg">Email</label>
-            <input type="email" id="email" class="w-full px-5 py-3 text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" required />
-          </div>
-          <div class="mb-6">
-            <label for="message" class="block text-gray-700 font-semibold mb-2 text-lg">Feedback</label>
-            <textarea id="message" rows="5" class="w-full px-5 py-3 text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your thoughts..." required></textarea>
-          </div>
-          <div class="flex justify-center">
-            <button type="submit" class="bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="w-1/2 h-1/6 flex justify-end">
-      <video controls autoplay muted loop class="w-[850px] h-[650px] object-cover rounded-xl shadow-xl">
-        <source src="video/homepageV.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </div>
-
-  <!-- Slider Section -->
-  <section class="slider-section mt-20">
-    <h1 class="font-bold text-blue-800 text-center text-5xl py-10 bg-gradient-to-r from-white via-purple-50 to-blue-50 rounded-xl">Our রিসকাস</h1><br>
-    <div class="accordion flex flex-wrap justify-center gap-4">
-      <div class="item"><img src="image/ric.jpg" alt="pic1" class="w-60 rounded shadow" /></div>
-      <div class="item"><img src="image/chutu.jpeg" alt="pic2" class="w-60 rounded shadow" /></div>
-      <div class="item"><img src="image/solar.jpg" alt="pic3" class="w-60 rounded shadow" /></div>
-      <div class="item"><img src="image/familyauto.jpg" alt="pic4" class="w-60 rounded shadow" /></div>
-      <div class="item"><img src="image/larger grp.jpg" alt="pic5" class="w-60 rounded shadow" /></div>
-      <div class="item"><img src="image/electric1.avif" alt="pic6" class="w-60 rounded shadow" /></div>
-      <div class="item"><img src="image/auto.jpeg" alt="pic7" class="w-60 rounded shadow" /></div>
+  <!-- Hero Section -->
+  <section class="relative w-full mt-16">
+    <img src="image/hero-image.jpg" alt="Hero Image" class="w-full h-[600px] object-cover rounded-b-3xl shadow-xl"/>
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-center text-white bg-black bg-opacity-40">
+      <h1 class="text-5xl font-extrabold mb-4">Banglar Tesla Rickshaw</h1>
+      <p class="text-xl mb-6 max-w-2xl">Safe, convenient, and eco-friendly rides in Dhaka. Book your ride instantly!</p>
+      <a href="login.html" class="bg-blue-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition">
+        Book a Ride
+      </a>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section class="my-10 text-center bg-gradient-to-r from-blue-200 to-purple-400">
-    <h2 class="text-4xl font-extrabold text-white mb-8">Why Banglar Tesla Hits Different</h2>
-    <div class="relative w-full max-w-5xl mx-auto overflow-hidden">
-      <div id="feature-carousel" class="flex animate-slide gap-6 px-4">
-        <div class="min-w-[300px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105">
-          <i class="fa-solid fa-shield-halved text-blue-600 text-6xl mb-4"></i>
-          <h3 class="text-2xl font-bold">Safe Travel</h3>
-        </div>
-        <div class="min-w-[300px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105">
-          <img src="image/femaleIcon.png" class="h-20 mb-4" />
-          <h3 class="text-2xl font-bold">Female Driver</h3>
-        </div>
-        <div class="min-w-[300px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105">
-          <i class="fa-solid fa-road-circle-check text-green-600 text-6xl mb-4"></i>
-          <h3 class="text-2xl font-bold">Confirmed Ride</h3>
-        </div>
-        <div class="min-w-[300px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105">
-          <i class="fa-solid fa-eye-slash text-yellow-500 text-6xl mb-4"></i>
-          <h3 class="text-2xl font-bold">No Hidden Charge</h3>
-        </div>
-        <div class="min-w-[300px] bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105">
-          <i class="fa-solid fa-hand-holding-dollar text-purple-600 text-6xl mb-4"></i>
-          <h3 class="text-2xl font-bold">No Commission</h3>
-        </div>
+  <section id="features" class="my-20 text-center max-w-7xl mx-auto px-6">
+    <h2 class="text-4xl font-extrabold text-blue-800 mb-12">Why Banglar Tesla Hits Different</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div class="bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+        <i class="fa-solid fa-shield-halved text-blue-600 text-6xl mb-4"></i>
+        <h3 class="text-2xl font-bold">Safe Travel</h3>
+      </div>
+      <div class="bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+        <img src="image/femaleIcon.png" class="h-20 mb-4" />
+        <h3 class="text-2xl font-bold">Female Driver</h3>
+      </div>
+      <div class="bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+        <i class="fa-solid fa-road-circle-check text-green-600 text-6xl mb-4"></i>
+        <h3 class="text-2xl font-bold">Confirmed Ride</h3>
+      </div>
+      <div class="bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+        <i class="fa-solid fa-eye-slash text-yellow-500 text-6xl mb-4"></i>
+        <h3 class="text-2xl font-bold">No Hidden Charge</h3>
+      </div>
+      <div class="bg-white shadow-lg rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+        <i class="fa-solid fa-hand-holding-dollar text-purple-600 text-6xl mb-4"></i>
+        <h3 class="text-2xl font-bold">No Commission</h3>
       </div>
     </div>
   </section>
 
- <section class="max-w-7xl mx-auto px-6 py-12">
-  <h2 class="text-4xl font-bold text-center mb-6">Our Achievement from Passengers</h2>
-  <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16 text-lg">
-    Hear what our passengers say about their rickshaw journeys with us.
-  </p>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10  ">
-    
-    <!-- Card Template -->
-    <article class="bg-white rounded-lg shadow-lg p-10 flex flex-col items-center text-center transform: translateY(-1px)">
-      <img
-        src="https://randomuser.me/api/portraits/women/44.jpg"
-        alt="User Picture"
-        class="w-32 h-32 rounded-full mb-6 object-cover"
-      />
-      <p class="text-gray-700 mb-6 text-lg leading-relaxed max-w-md">
-        I had a smooth and comfortable ride with friendly drivers. Highly recommend for hassle-free travel!
-      </p>
-      <h3 class="font-semibold text-2xl mb-1">Sadia Afrin</h3>
-      <p class="text-blue-600 font-semibold text-base">Regular Passenger</p>
-    </article>
-
-    <article class="bg-white rounded-lg shadow-lg p-10 flex flex-col items-center text-center">
-      <img
-        src="https://randomuser.me/api/portraits/men/36.jpg"
-        alt="User Picture"
-        class="w-32 h-32 rounded-full mb-6 object-cover"
-      />
-      <p class="text-gray-700 mb-6 text-lg leading-relaxed max-w-md">
-        Quick and safe rickshaw rides whenever I need them. The app makes booking so easy!
-      </p>
-      <h3 class="font-semibold text-2xl mb-1">Mohammad Rahman</h3>
-      <p class="text-blue-600 font-semibold text-base">Business Traveler</p>
-    </article>
-
-    <article class="bg-white rounded-lg shadow-lg p-10 flex flex-col items-center text-center">
-      <img
-        src="https://randomuser.me/api/portraits/women/65.jpg"
-        alt="User Picture"
-        class="w-32 h-32 rounded-full mb-6 object-cover"
-      />
-      <p class="text-gray-700 mb-6 text-lg leading-relaxed max-w-md">
-        The drivers are polite and the vehicles are well maintained. It’s my go-to for daily commutes!
-      </p>
-      <h3 class="font-semibold text-2xl mb-1">Ayesha Siddiqua</h3>
-      <p class="text-blue-600 font-semibold text-base">Daily Commuter</p>
-    </article>
-
-    <article class="bg-white rounded-lg shadow-lg p-10 flex flex-col items-center text-center">
-      <img
-        src="https://randomuser.me/api/portraits/men/22.jpg"
-        alt="User Picture"
-        class="w-32 h-32 rounded-full mb-6 object-cover"
-      />
-      <p class="text-gray-700 mb-6 text-lg leading-relaxed max-w-md">
-        Convenient and affordable rides every time. The app’s tracking feature gives me peace of mind.
-      </p>
-      <h3 class="font-semibold text-2xl mb-1">Jahidul Islam</h3>
-      <p class="text-blue-600 font-semibold text-base">Student</p>
-    </article>
-
-    <article class="bg-white rounded-lg shadow-lg p-10 flex flex-col items-center text-center">
-      <img
-        src="https://randomuser.me/api/portraits/women/19.jpg"
-        alt="User Picture"
-        class="w-32 h-32 rounded-full mb-6 object-cover"
-      />
-      <p class="text-gray-700 mb-6 text-lg leading-relaxed max-w-md">
-        The best way to navigate busy streets with ease. Drivers are friendly and punctual.
-      </p>
-      <h3 class="font-semibold text-2xl mb-1">Farhana Chowdhury</h3>
-      <p class="text-blue-600 font-semibold text-base">Working Professional</p>
-    </article>
-
-    <article class="bg-white rounded-lg shadow-lg p-10 flex flex-col items-center text-center">
-      <img
-        src="https://randomuser.me/api/portraits/men/47.jpg"
-        alt="User Picture"
-        class="w-32 h-32 rounded-full mb-6 object-cover"
-      />
-      <p class="text-gray-700 mb-6 text-lg leading-relaxed max-w-md">
-        Always a pleasant experience. The booking system is simple and the drivers are respectful.
-      </p>
-      <h3 class="font-semibold text-2xl mb-1">Rafiq Hasan</h3>
-      <p class="text-blue-600 font-semibold text-base">Frequent Traveler</p>
-    </article>
-
-  </div>
-</section>
-
-  <!-- Watch Trailer + Social Icons -->
-  <section class="w-full">
-    <div class="flex flex-col md:flex-row justify-between items-center gap-8 bg-opacity-90 rounded-none shadow-md p-6 w-full">
-      <div class="flex items-center gap-4">
-        <i class="fa-solid fa-play play-button text-3xl bg-red-500 text-white p-3 rounded-full cursor-pointer hover:bg-red-600" onclick="toggleVideo()"></i>
-        <p class="text-blue-900 font-bold text-2xl">Watch Trailer</p>
-      </div>
-      <div class="social-media-icons flex gap-6">
-        <a href="#" class="text-3xl text-blue-600 hover:text-blue-800"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#" class="text-3xl text-red-600 hover:text-red-800"><i class="fa-brands fa-youtube"></i></a>
-      </div>
+  <!-- Slider Section -->
+  <section id="slider-section" class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="text-4xl font-bold text-center mb-8">Our Rickshaws</h2>
+    <div class="flex flex-wrap justify-center gap-4">
+      <img src="image/ric.jpg" alt="pic1" class="w-60 rounded shadow" />
+      <img src="image/chutu.jpeg" alt="pic2" class="w-60 rounded shadow" />
+      <img src="image/solar.jpg" alt="pic3" class="w-60 rounded shadow" />
+      <img src="image/familyauto.jpg" alt="pic4" class="w-60 rounded shadow" />
+      <img src="image/larger grp.jpg" alt="pic5" class="w-60 rounded shadow" />
+      <img src="image/electric1.avif" alt="pic6" class="w-60 rounded shadow" />
+      <img src="image/auto.jpeg" alt="pic7" class="w-60 rounded shadow" />
     </div>
   </section>
-
-  <!-- Trailer Modal -->
-  <div id="trailer-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-    <div class="relative bg-white rounded-xl shadow-lg p-4 max-w-3xl w-full">
-      <video id="trailer-video" controls autoplay class="w-full rounded-lg">
-        <source src="video/your-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <button onclick="toggleVideo()" class="absolute top-2 right-2 text-red-600 hover:text-red-800 text-3xl font-bold">&times;</button>
-    </div>
-  </div>
 
   <!-- Footer -->
-  <footer class="mt-18 bg-purple-500 text-white text-4xl text-center py-8">
-    <p class="text-sm">© 2025 Banglar Tesla. All rights reserved.</p>
-    <p class="text-xs mt-1">Designed with ❤️ in Bangladesh</p>
+  <footer class="mt-20 bg-purple-500 text-white py-12 relative">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row justify-between gap-8">
+      <div>
+        <h2 class="text-3xl font-bold mb-4">Banglar Tesla</h2>
+        <p class="text-sm max-w-md">Safe, eco-friendly rickshaw rides in Dhaka. Book instantly and enjoy your ride.</p>
+      </div>
+
+      <!-- Feedback Form in Footer -->
+      <div id="feedback-section" class="bg-white text-gray-700 rounded-xl shadow-lg p-6 w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-4 text-blue-800">We Value Your Feedback</h2>
+        <form id="feedbackForm">
+          <input type="text" id="name" placeholder="Name" class="w-full border rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+          <input type="email" id="email" placeholder="Email" class="w-full border rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+          <textarea id="message" rows="3" placeholder="Your message" class="w-full border rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+          <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Submit</button>
+        </form>
+      </div>
+    </div>
+    <p class="text-center text-sm mt-6">© 2025 Banglar Tesla. All rights reserved. Designed with ❤️ in Bangladesh.</p>
   </footer>
 
   <!-- Scripts -->
   <script>
-    function toggleVideo() {
-      const modal = document.getElementById("trailer-modal");
-      const video = document.getElementById("trailer-video");
-      if (modal.classList.contains("hidden")) {
-        modal.classList.remove("hidden");
-        video.play();
+    const searchInput = document.getElementById("navSearch");
+    const suggestionsDiv = document.getElementById("searchSuggestions");
+
+    const searchMap = {
+      "login": "login.html",
+      "female-booking": "FemaleRickshawBooking",
+      "buy rickshaw": "buyrickshaw.html",
+      "features": "#features",
+      "rickshaws": "#slider-section",
+      "feedback": "#feedback-section"
+    };
+
+    // Show suggestions as user types
+    searchInput.addEventListener("input", function() {
+      const query = searchInput.value.toLowerCase();
+      suggestionsDiv.innerHTML = "";
+      if(!query){ suggestionsDiv.classList.add("hidden"); return; }
+
+      for(const key in searchMap){
+        if(key.includes(query)){
+          const div = document.createElement("div");
+          div.textContent = key;
+          div.addEventListener("click", function(){
+            navigateTo(searchMap[key]);
+          });
+          suggestionsDiv.appendChild(div);
+        }
+      }
+      suggestionsDiv.classList.toggle("hidden", suggestionsDiv.children.length === 0);
+    });
+
+    // Navigate on enter key
+    searchInput.addEventListener("keypress", function(e){
+      if(e.key === "Enter"){
+        e.preventDefault();
+        const query = searchInput.value.toLowerCase();
+        let found = false;
+        for(const key in searchMap){
+          if(query.includes(key)){
+            navigateTo(searchMap[key]);
+            found = true;
+            break;
+          }
+        }
+        if(!found) alert("No matching section found!");
+      }
+    });
+
+    function navigateTo(target){
+      if(target.startsWith("#")){
+        const section = document.querySelector(target);
+        if(section) section.scrollIntoView({behavior:"smooth"});
       } else {
-        modal.classList.add("hidden");
-        video.pause();
-        video.currentTime = 0;
+        window.location.href = target;
       }
     }
 
     // Feedback form submission
-    document.getElementById("feedbackForm").addEventListener("submit", async function (e) {
+    document.getElementById("feedbackForm").addEventListener("submit", async function(e){
       e.preventDefault();
-
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const message = document.getElementById("message").value.trim();
-
-      const res = await fetch("http://localhost:3000/api/feedback/submit-feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert(data.message);
-        document.getElementById("feedbackForm").reset();
-      } else {
-        alert("Error: " + data.message);
-      }
+      try{
+        const res = await fetch("http://localhost:3000/api/feedback/submit-feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name,email,message }),
+        });
+        const data = await res.json();
+        if(res.ok){ alert(data.message); this.reset(); }
+        else alert("Error: "+data.message);
+      } catch(err){ alert("Server not reachable!"); }
     });
   </script>
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="homeMain.js"></script>
+
 </body>
 </html>
