@@ -74,7 +74,7 @@ formError.addEventListener("submit", async function (event) {
     const role = document.querySelector('select').value;
 
     try {
-      const res = await fetch('http://localhost:3000/api/auth/register', {
+      const res = await fetch('https://banglar-teshla-rickshaw-booking-app.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, role })
@@ -149,7 +149,7 @@ formError1.addEventListener("submit", async function (event) {
     const password = document.getElementById('login-pass').value;
 
     try {
-      const res = await fetch('http://localhost:3000/api/auth/login', {
+      const res = await fetch('https://banglar-teshla-rickshaw-booking-app.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
