@@ -45,7 +45,7 @@
 
   async function fetchAvailableRickshaws() {
     try {
-      const res = await fetch('http://localhost:3000/api/rickshaws/available', {
+      const res = await fetch('https://banglar-teshla-rickshaw-booking-app.onrender.com/api/rickshaws/available', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +99,7 @@
   if (!confirmRide) return;
 
   try {
-    const res = await fetch('http://localhost:3000/api/rides/request', {
+    const res = await fetch('https://banglar-teshla-rickshaw-booking-app.onrender.com/api/rides/request', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
