@@ -12,7 +12,7 @@
   <div class="text-2xl font-bold text-blue-800">
     Available Rickshaws
   </div>
-  <a href="/front-end/login.html"" onclick="logout()" class="text-blue-600 hover:text-red-800 text-2xl font-bold flex items-center gap-2">
+  <a href="/login.html"" onclick="logout()" class="text-blue-600 hover:text-red-800 text-2xl font-bold flex items-center gap-2">
     Back to Dashboard
   </a>
 </nav>
@@ -29,12 +29,12 @@
 
   if (!token || !email) {
     alert("Please login first!");
-    window.location.href = "/front-end/login.html";
+    window.location.href = "/login.html";
   }
 
   function logout() {
     localStorage.clear();
-    window.location.href = "/front-end/login.html";
+    window.location.href = "/login.html";
   }
 
   const params = new URLSearchParams(window.location.search);
@@ -126,7 +126,7 @@
     // Save ride info in localStorage or sessionStorage
     localStorage.setItem('currentRide', JSON.stringify(data.ride)); 
     // Redirect to ride-info page
-    window.location.href = '/front-end/ride-info.html';
+    window.location.href = '/ride-info.html';
 
   } catch (err) {
     alert("Network error: " + err.message);
