@@ -140,7 +140,7 @@
 
   async function fetchProfile() {
   try {
-    const res = await fetch(`http://localhost:3000/api/passenger/${email}`, {
+    const res = await fetch(`https://banglar-teshla-rickshaw-booking-app.onrender.com/api/passenger/${email}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     const data = await res.json();
@@ -152,7 +152,7 @@
       document.getElementById("pPhoto").value = data.profilePic || "";
 
       const photoUrl = data.profilePic
-        ? `http://localhost:3000/uploads/${data.profilePic}`
+        ? `https://banglar-teshla-rickshaw-booking-app.onrender.com/uploads/${data.profilePic}`
         : '/front-end/image/default.png';
       document.getElementById('profileImg').src = photoUrl;
 
@@ -178,7 +178,7 @@
       formData.append("photo", document.getElementById("pPhoto").value);
     }
 
-    const res = await fetch(`http://localhost:3000/api/passenger/${encodeURIComponent(email)}`, {
+    const res = await fetch(`https://banglar-teshla-rickshaw-booking-app.onrender.com/api/passenger/${encodeURIComponent(email)}`, {
       method: "PATCH",
       headers: { 'Authorization': `Bearer ${token}` },
       body: formData
