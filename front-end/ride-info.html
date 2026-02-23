@@ -34,7 +34,7 @@
 
     if (!token || !ride) {
       alert('Missing ride info or not logged in. Redirecting...');
-      window.location.href = '/front-end/login.html';
+      window.location.href = '/login.html';
     }
 
     // Display ride info
@@ -67,7 +67,7 @@
         alert('Journey stopped successfully!');
         // Clear ride info and redirect back to dashboard or home page
         localStorage.removeItem('currentRide');
-        window.location.href = '/front-end/passengerhome.html';
+        window.location.href = '/passengerhome.html';
 
       } catch (err) {
         statusMsg.textContent = err.message;
