@@ -58,7 +58,7 @@
       formData.append("profilePic", document.getElementById("profilePic").files[0]);
 
       try {
-        const res = await fetch("http://localhost:3000/api/traffic/profile", {
+        const res = await fetch("https://banglar-teshla-rickshaw-booking-app.onrender.com/api/traffic/profile", {
           method: "POST",
           body: formData,
         });
@@ -78,11 +78,11 @@
 
     async function fetchProfile() {
       try {
-        const res = await fetch("http://localhost:3000/api/traffic/profile");
+        const res = await fetch("https://banglar-teshla-rickshaw-booking-app.onrender.com/api/traffic/profile");
         const data = await res.json();
 
         if (res.ok) {
-          document.getElementById("displayPic").src = `http://localhost:3000/uploads/${data.profilePic}`;
+          document.getElementById("displayPic").src = `https://banglar-teshla-rickshaw-booking-app.onrender.com/uploads/${data.profilePic}`;
           document.getElementById("displayUid").textContent = data.uniqueId || "N/A";
           document.getElementById("displayName").textContent = data.name;
           document.getElementById("displayEmail").textContent = data.email;
