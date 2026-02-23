@@ -65,7 +65,7 @@
 
     if (!token) {
       alert('Not logged in. Redirecting to login...');
-      window.location.href = 'login.html';
+      window.location.href = '/login.html';
     } else {
       console.log("Token found:", token);
     }
@@ -146,7 +146,7 @@ document.getElementById('driverProfileForm').addEventListener('submit', async (e
   const email = localStorage.getItem('email');
   if (!email) {
     alert("No email found in localStorage. Please login again.");
-    window.location.href = 'login.html';
+    window.location.href = '/login.html';
     return;
   }
 
@@ -292,7 +292,7 @@ async function fetchCurrentRide() {
     function logout() {
   localStorage.removeItem('token');
   localStorage.removeItem('email');  // clear email too
-  window.location.href = 'login.html';
+  window.location.href = '/login.html';
 }
 
 
