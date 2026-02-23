@@ -14,7 +14,7 @@
   <div class="text-2xl font-bold text-blue-800">
     Welcome, <span id="passengerName">Passenger</span> Dashboard
   </div>
-  <a href="/front-end/login.html" onclick="logout()" class="text-blue-600 hover:text-red-800 text-2xl font-bold flex items-center gap-2">
+  <a href="/login.html" onclick="logout()" class="text-blue-600 hover:text-red-800 text-2xl font-bold flex items-center gap-2">
     Logout
   </a>
 </nav>
@@ -41,7 +41,7 @@
       <label class="block font-semibold">Or Upload Profile Photo</label>
       <input id="pPhotoFile" type="file" accept="image/*" class="w-full p-2 border rounded" />
 
-      <img id="profileImg" src="/front-end/image/default.png" class="w-32 h-32 object-cover mx-auto rounded-full border mt-4" alt="Profile" />
+      <img id="profileImg" src="/image/default.png" class="w-32 h-32 object-cover mx-auto rounded-full border mt-4" alt="Profile" />
 
       <button onclick="updateProfile()" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
         💾 Save Updates
@@ -53,7 +53,7 @@
   <main class="lg:col-span-5">
     <div class="w-full bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-shadow">
       <h2 class="text-5xl font-extrabold text-blue-800 mb-6 text-center">🚖 BOOK A RICKSHAW</h2>
-      <img src="/front-end/image/passemgP.jpg" alt="Rickshaw" class="w-full h-auto mb-8 rounded-lg border border-gray-300">
+      <img src="/image/passemgP.jpg" alt="Rickshaw" class="w-full h-auto mb-8 rounded-lg border border-gray-300">
 
       <div class="space-y-8 text-2xl">
         <div class="flex gap-6">
@@ -133,7 +133,7 @@
 
   if (!token || !email) {
     alert("Please login first!");
-    window.location.href = "/front-end/login.html";
+    window.location.href = "/login.html";
   }
 
   document.getElementById("passengerName").innerText = name || "Passenger";
@@ -153,7 +153,7 @@
 
       const photoUrl = data.profilePic
         ? `https://banglar-teshla-rickshaw-booking-app.onrender.com/uploads/${data.profilePic}`
-        : '/front-end/image/default.png';
+        : '/image/default.png';
       document.getElementById('profileImg').src = photoUrl;
 
     } else {
@@ -209,7 +209,7 @@
 
   function logout() {
     localStorage.clear();
-    window.location.href = "/front-end/login.html";
+    window.location.href = "/login.html";
   }
 
   function goToBargaining() {
